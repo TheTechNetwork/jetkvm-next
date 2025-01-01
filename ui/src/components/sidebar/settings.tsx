@@ -267,7 +267,7 @@ export default function SettingsSidebar() {
     }
   };
 
-  const {isPluginUploadModalOpen, setIsPluginUploadModalOpen} = usePluginStore();
+  const {isPluginUploadModalOpen, setIsPluginUploadModalOpen, setPluginUploadModalView} = usePluginStore();
 
   useEffect(() => {
     getCloudState();
@@ -801,7 +801,10 @@ export default function SettingsSidebar() {
               size="SM"
               theme="primary"
               text="Upload Plugin"
-              onClick={() => setIsPluginUploadModalOpen(true)}
+              onClick={() => {
+                setPluginUploadModalView("upload");
+                setIsPluginUploadModalOpen(true)
+              }}
             />
             <UploadPluginModal
               open={isPluginUploadModalOpen}
