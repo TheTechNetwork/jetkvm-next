@@ -550,3 +550,14 @@ export const useLocalAuthModalStore = create<LocalAuthModalState>(set => ({
   setModalView: view => set({ modalView: view }),
   setErrorMessage: message => set({ errorMessage: message }),
 }));
+
+
+interface PluginState {
+  isPluginUploadModalOpen: boolean;
+  setIsPluginUploadModalOpen: (isOpen: boolean) => void;
+}
+
+export const usePluginStore = create<PluginState>(set => ({
+  isPluginUploadModalOpen: false,
+  setIsPluginUploadModalOpen: isOpen => set({ isPluginUploadModalOpen: isOpen }),
+}));

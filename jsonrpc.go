@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"kvm/internal/plugin"
 	"log"
 	"os"
 	"os/exec"
@@ -597,6 +598,7 @@ var rpcHandlers = map[string]RPCHandler{
 	"getWakeOnLanDevices":    {Func: rpcGetWakeOnLanDevices},
 	"setWakeOnLanDevices":    {Func: rpcSetWakeOnLanDevices, Params: []string{"params"}},
 	"resetConfig":            {Func: rpcResetConfig},
+	"pluginStartUpload":      {Func: plugin.RpcPluginStartUpload, Params: []string{"filename", "size"}},
 	"setBacklightSettings":   {Func: rpcSetBacklightSettings, Params: []string{"settings"}},
 	"getBacklightSettings":   {Func: rpcGetBacklightSettings},
 }
