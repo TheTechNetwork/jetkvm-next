@@ -601,6 +601,7 @@ var rpcHandlers = map[string]RPCHandler{
 	"pluginStartUpload":      {Func: plugin.RpcPluginStartUpload, Params: []string{"filename", "size"}},
 	"pluginExtract":          {Func: plugin.RpcPluginExtract, Params: []string{"filename"}},
 	"pluginInstall":          {Func: plugin.RpcPluginInstall, Params: []string{"name", "version"}},
+	"pluginList":             {Func: plugin.RpcPluginList},
 	"setBacklightSettings":   {Func: rpcSetBacklightSettings, Params: []string{"settings"}},
 	"getBacklightSettings":   {Func: rpcGetBacklightSettings},
 }
