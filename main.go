@@ -2,6 +2,7 @@ package kvm
 
 import (
 	"context"
+	"kvm/internal/plugin"
 	"log"
 	"net/http"
 	"os"
@@ -71,10 +72,13 @@ func Main() {
 	if config.CloudToken != "" {
 		go RunWebsocketClient()
 	}
+	go plugin.ReconcilePlugins()
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 	<-sigs
 	log.Println("JetKVM Shutting Down")
+
+	plugin.GracefullyShutdownPlugins()
 	//if fuseServer != nil {
 	//	err := setMassStorageImage(" ")
 	//	if err != nil {
