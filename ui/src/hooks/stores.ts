@@ -579,6 +579,12 @@ interface PluginState {
 
   plugins: PluginStatus[];
   setPlugins: (plugins: PluginStatus[]) => void;
+
+  pluginConfigureModalOpen: boolean;
+  setPluginConfigureModalOpen: (isOpen: boolean) => void;
+
+  configuringPlugin: PluginStatus | null;
+  setConfiguringPlugin: (plugin: PluginStatus | null) => void;
 }
 
 export const usePluginStore = create<PluginState>(set => ({
@@ -596,4 +602,10 @@ export const usePluginStore = create<PluginState>(set => ({
 
   plugins: [],
   setPlugins: plugins => set({ plugins }),
+
+  pluginConfigureModalOpen: false,
+  setPluginConfigureModalOpen: isOpen => set({ pluginConfigureModalOpen: isOpen }),
+
+  configuringPlugin: null,
+  setConfiguringPlugin: plugin => set({ configuringPlugin: plugin }),
 }));
