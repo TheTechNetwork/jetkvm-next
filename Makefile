@@ -2,7 +2,7 @@ BRANCH    ?= $(shell git rev-parse --abbrev-ref HEAD)
 BUILDDATE ?= $(shell date --iso-8601=seconds)
 REVISION  ?= $(shell git rev-parse HEAD)
 VERSION_DEV := 0.3.5-dev$(shell date +%Y%m%d%H%M)
-VERSION_NEXT := $(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)
+VERSION_NEXT := 0.3.5-$(git rev-parse --short HEAD)-$(git describe --tags --abbrev=0)
 VERSION := 0.3.4
 
 GO_LDFLAGS := \
@@ -31,7 +31,7 @@ build_release: frontend hash_resource
 	@echo "Building release..."
 	GOOS=linux GOARCH=arm GOARM=7 go build -ldflags="$(GO_LDFLAGS) -X kvm.builtAppVersion=$(VERSION)" -o bin/jetkvm_app cmd/main.go
 
-build_next: hash_resource
+build_next: frontend hash_resource
 	@echo "Building jetkvm-next..."
 	GOOS=linux GOARCH=arm GOARM=7 go build -ldflags="$(GO_LDFLAGS) -X kvm.builtAppVersion=$(VERSION_NEXT)" -o bin/next/jetkvm_app cmd/main.go
 
