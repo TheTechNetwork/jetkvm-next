@@ -561,8 +561,8 @@ export interface PluginManifest {
 
 export interface PluginStatus extends PluginManifest {
   enabled: boolean;
-  status: "stopped" | "running" | "errored";
-  error?: string;
+  status: "stopped" | "running" | "loading" | "pending-configuration" | "errored";
+  message?: string;
 }
 
 interface PluginState {
