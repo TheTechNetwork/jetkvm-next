@@ -2,7 +2,7 @@ BRANCH    ?= $(shell git rev-parse --abbrev-ref HEAD)
 BUILDDATE ?= $(shell date --iso-8601=seconds)
 REVISION  ?= $(shell git rev-parse HEAD)
 VERSION_DEV := 0.3.5-dev$(shell date +%Y%m%d%H%M)
-VERSION_NEXT := 0.3.5-$(git rev-parse --short HEAD)-$(git describe --tags --abbrev=0)
+VERSION_NEXT := 0.3.5-$(shell git rev-parse --short HEAD)-$(shell git describe --tags --abbrev=0)
 VERSION := 0.3.4
 
 GO_LDFLAGS := \
