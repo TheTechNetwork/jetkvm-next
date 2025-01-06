@@ -25,6 +25,17 @@ type Config struct {
 	DisplayMaxBrightness int               `json:"display_max_brightness"`
 	DisplayDimAfterMs    int64             `json:"display_dim_after_ms"`
 	DisplayOffAfterMs    int64             `json:"display_off_after_ms"`
+	CloudURL             string            `json:"cloud_url"`
+	CloudToken           string            `json:"cloud_token"`
+	GoogleIdentity       string            `json:"google_identity"`
+	JigglerEnabled       bool              `json:"jiggler_enabled"`
+	AutoUpdateEnabled    bool              `json:"auto_update_enabled"`
+	IncludePreRelease    bool              `json:"include_pre_release"`
+	HashedPassword       string            `json:"hashed_password"`
+	LocalAuthToken       string            `json:"local_auth_token"`
+	LocalAuthMode        string            `json:"localAuthMode"` //TODO: fix it with migration
+	WakeOnLanDevices     []WakeOnLanDevice `json:"wake_on_lan_devices"`
+	EdidString           string            `json:"hdmi_edid_string"`
 }
 
 const configPath = "/userdata/kvm_config.json"
