@@ -584,8 +584,8 @@ interface PluginState {
   pluginConfigureModalOpen: boolean;
   setPluginConfigureModalOpen: (isOpen: boolean) => void;
 
-  configuringPlugin: PluginStatus | null;
-  setConfiguringPlugin: (plugin: PluginStatus | null) => void;
+  configuringPlugin: string | null;
+  setConfiguringPlugin: (pluginName: string | null) => void;
 }
 
 export const usePluginStore = create<PluginState>(set => ({
