@@ -535,16 +535,19 @@ function UrlView({
     {
       name: "Debian 12",
       url: "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.9.0-amd64-netinst.iso",
+      url: "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.9.0-amd64-netinst.iso",
       icon: DebianIcon,
     },
     {
+      name: "Fedora 41",
+      url: "https://download.fedoraproject.org/pub/fedora/linux/releases/41/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-41-1.4.iso",
       name: "Fedora 41",
       url: "https://download.fedoraproject.org/pub/fedora/linux/releases/41/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-41-1.4.iso",
       icon: FedoraIcon,
     },
     {
       name: "Arch Linux",
-      url: "https://archlinux.doridian.net/iso/2025.02.01/archlinux-2025.02.01-x86_64.iso",
+      url: "https://archlinux.doridian.net/iso/2025.01.01/archlinux-2025.01.01-x86_64.iso",
       icon: ArchIcon,
     },
     {
