@@ -75,14 +75,7 @@ func newSession() (*Session, error) {
 		switch d.Label() {
 		case "rpc":
 			session.RPCChannel = d
-			fmt.Println("starting rpc server")
-			rpcServer := NewDataChannelJsonRpcServer(d)
-			d.OnError(func(err error) {
-				fmt.Println("rpc error", err)
-			})
-			d.OnClose(func() {
-				fmt.Println("rpc closed")
-			})
+			rpcServer := NewDataChannelJsonRpcRouter(d)
 			d.OnMessage(func(msg webrtc.DataChannelMessage) {
 				go rpcServer.HandleMessage(msg.Data)
 			})
