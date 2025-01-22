@@ -164,33 +164,33 @@ func writeGadgetConfig() error {
 		return err
 	}
 	//mass storage
-	massStoragePath := path.Join(kvmGadgetPath, "functions", "mass_storage.usb0")
-	err = os.MkdirAll(massStoragePath, 0755)
-	if err != nil {
-		return err
-	}
-
-	err = writeGadgetAttrs(massStoragePath, [][]string{
-		{"stall", "1"},
-	})
-	if err != nil {
-		return err
-	}
-	lun0Path := path.Join(massStoragePath, "lun.0")
-	err = os.MkdirAll(lun0Path, 0755)
-	if err != nil {
-		return err
-	}
-	err = writeGadgetAttrs(lun0Path, [][]string{
-		{"cdrom", "1"},
-		{"ro", "1"},
-		{"removable", "1"},
-		{"file", "\n"},
-		{"inquiry_string", "JetKVM Virtual Media"},
-	})
-	if err != nil {
-		return err
-	}
+//	massStoragePath := path.Join(kvmGadgetPath, "functions", "mass_storage.usb0")
+//	err = os.MkdirAll(massStoragePath, 0755)
+//	if err != nil {
+//		return err
+//	}
+//
+//	err = writeGadgetAttrs(massStoragePath, [][]string{
+//		{"stall", "1"},
+//	})
+//	if err != nil {
+//		return err
+//	}
+//	lun0Path := path.Join(massStoragePath, "lun.0")
+//	err = os.MkdirAll(lun0Path, 0755)
+//	if err != nil {
+//		return err
+//	}
+//	err = writeGadgetAttrs(lun0Path, [][]string{
+//		{"cdrom", "1"},
+//		{"ro", "1"},
+//		{"removable", "1"},
+//		{"file", "\n"},
+//		{"inquiry_string", "JetKVM Virtual Media"},
+//	})
+//	if err != nil {
+//		return err
+//	}
 
 	err = os.Symlink(hid0Path, path.Join(configC1Path, "hid.usb0"))
 	if err != nil {
@@ -202,10 +202,10 @@ func writeGadgetConfig() error {
 		return err
 	}
 
-	err = os.Symlink(massStoragePath, path.Join(configC1Path, "mass_storage.usb0"))
-	if err != nil {
-		return err
-	}
+//	err = os.Symlink(massStoragePath, path.Join(configC1Path, "mass_storage.usb0"))
+//	if err != nil {
+//		return err
+//	}
 
 	err = os.WriteFile(path.Join(kvmGadgetPath, "UDC"), []byte(udc), 0644)
 	if err != nil {
