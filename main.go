@@ -52,7 +52,7 @@ func Main() {
 			if config.AutoUpdateEnabled == false {
 				return
 			}
-			if currentSession != nil {
+			if len(sessions) != 0 {
 				logger.Debugf("skipping update since a session is active")
 				time.Sleep(1 * time.Minute)
 				continue

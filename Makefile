@@ -3,6 +3,7 @@ BUILDDATE ?= $(shell date --iso-8601=seconds)
 REVISION  ?= $(shell git rev-parse HEAD)
 VERSION_DEV := 0.3.5-dev$(shell date +%Y%m%d%H%M)
 VERSION_NEXT := 0.3.5-$(shell git rev-parse --short HEAD)-$(shell git describe --tags --abbrev=0)
+VERSION_NEXT_MULTI := 0.3.5-$(shell git rev-parse --short HEAD)-$(shell git describe --tags --abbrev=0)-multisession
 VERSION := 0.3.4
 
 GO_LDFLAGS := \
@@ -34,6 +35,10 @@ build_release: frontend hash_resource
 build_next: frontend hash_resource
 	@echo "Building jetkvm-next..."
 	GOOS=linux GOARCH=arm GOARM=7 go build -ldflags="$(GO_LDFLAGS) -X kvm.builtAppVersion=$(VERSION_NEXT)" -o bin/next/jetkvm_app cmd/main.go
+
+build_next_multi: frontend hash_resource
+	@echo "Building jetkvm-next-multisession..."
+	GOOS=linux GOARCH=arm GOARM=7 go build -ldflags="$(GO_LDFLAGS) -X kvm.builtAppVersion=$(VERSION_NEXT_MULTI)" -o bin/next/jetkvm_app cmd/main.go
 
 release:
 	@if rclone lsf r2://jetkvm-update/app/$(VERSION)/ | grep -q "jetkvm_app"; then \

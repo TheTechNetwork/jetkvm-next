@@ -52,7 +52,7 @@ if [ -z "$REMOTE_HOST" ]; then
 fi
 
 # Build the development version on the host
-make frontend
+#make frontend
 make build_dev
 
 # Change directory to the binary output directory
@@ -69,8 +69,6 @@ set -e
 export LD_LIBRARY_PATH=/oem/usr/lib:\$LD_LIBRARY_PATH
 
 # Kill any existing instances of the application
-killall jetkvm_app || true
-killall jetkvm_app_debug || true
 
 # Navigate to the directory where the binary will be stored
 cd "$REMOTE_PATH"
@@ -79,7 +77,6 @@ cd "$REMOTE_PATH"
 chmod +x jetkvm_app_debug
 
 # Run the application in the background
-./jetkvm_app_debug
 
 EOF
 

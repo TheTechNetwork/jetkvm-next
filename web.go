@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -115,7 +114,7 @@ func setupRouter() *gin.Engine {
 }
 
 // TODO: support multiple sessions?
-var currentSession *Session
+var sessions []*Session
 
 func handleWebRTCSession(c *gin.Context) {
 	var req WebRTCSessionRequest
@@ -136,15 +135,15 @@ func handleWebRTCSession(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err})
 		return
 	}
-	if currentSession != nil {
-		writeJSONRPCEvent("otherSessionConnected", nil, currentSession)
-		peerConn := currentSession.peerConnection
-		go func() {
-			time.Sleep(1 * time.Second)
-			_ = peerConn.Close()
-		}()
-	}
-	currentSession = session
+	// if currentSession != nil {
+	// 	writeJSONRPCEvent("otherSessionConnected", nil, currentSession)
+	// 	peerConn := currentSession.peerConnection
+	// 	go func() {
+	// 		time.Sleep(1 * time.Second)
+	// 		_ = peerConn.Close()
+	// 	}()
+	// }
+	sessions = append(sessions, session)
 	c.JSON(http.StatusOK, gin.H{"sd": sd})
 }
 

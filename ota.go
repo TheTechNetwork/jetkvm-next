@@ -271,11 +271,15 @@ var otaState = OTAState{}
 
 func triggerOTAStateUpdate() {
 	go func() {
-		if currentSession == nil {
+		if len(sessions) == 0 {
 			log.Println("No active RPC session, skipping update state update")
 			return
 		}
-		writeJSONRPCEvent("otaState", otaState, currentSession)
+
+		// Write OTA events to all sessions
+		for _, session := range sessions {
+			writeJSONRPCEvent("otaState", otaState, session)
+		}
 	}()
 }
 

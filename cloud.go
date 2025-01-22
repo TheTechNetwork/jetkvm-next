@@ -7,13 +7,14 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
-	"github.com/coder/websocket/wsjson"
 	"time"
+
+	"github.com/coder/websocket/wsjson"
 
 	"github.com/coreos/go-oidc/v3/oidc"
 
-	"github.com/gin-gonic/gin"
 	"github.com/coder/websocket"
+	"github.com/gin-gonic/gin"
 )
 
 type CloudRegisterRequest struct {
@@ -203,15 +204,6 @@ func handleSessionRequest(ctx context.Context, c *websocket.Conn, req WebRTCSess
 		_ = wsjson.Write(context.Background(), c, gin.H{"error": err})
 		return err
 	}
-	if currentSession != nil {
-		writeJSONRPCEvent("otherSessionConnected", nil, currentSession)
-		peerConn := currentSession.peerConnection
-		go func() {
-			time.Sleep(1 * time.Second)
-			_ = peerConn.Close()
-		}()
-	}
-	currentSession = session
 	_ = wsjson.Write(context.Background(), c, gin.H{"sd": sd})
 	return nil
 }

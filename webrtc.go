@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"slices"
 	"strings"
 
 	"github.com/pion/webrtc/v4"
@@ -141,8 +142,10 @@ func newSession() (*Session, error) {
 			_ = peerConnection.Close()
 		}
 		if connectionState == webrtc.ICEConnectionStateClosed {
-			if session == currentSession {
-				currentSession = nil
+			for index, s := range sessions {
+				if session == s {
+					sessions = slices.Delete(sessions, index, index+1)
+				}
 			}
 			if session.shouldUmountVirtualMedia {
 				err := rpcUnmountImage()

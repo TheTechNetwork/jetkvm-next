@@ -202,8 +202,9 @@ func handleVideoClient(conn net.Conn) {
 		sinceLastFrame := now.Sub(lastFrame)
 		lastFrame = now
 		//fmt.Println("Video packet received", n, sinceLastFrame)
-		if currentSession != nil {
-			err := currentSession.VideoTrack.WriteSample(media.Sample{Data: inboundPacket[:n], Duration: sinceLastFrame})
+		// Iterate over active sessions
+		for _, session := range sessions {
+			err := session.VideoTrack.WriteSample(media.Sample{Data: inboundPacket[:n], Duration: sinceLastFrame})
 			if err != nil {
 				log.Println("Error writing sample", err)
 			}
