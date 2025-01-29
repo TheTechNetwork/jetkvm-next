@@ -25,6 +25,7 @@ type Config struct {
 	GoogleIdentity       string            `json:"google_identity"`
 	JigglerEnabled       bool              `json:"jiggler_enabled"`
 	AutoUpdateEnabled    bool              `json:"auto_update_enabled"`
+	KeyboardLayout    string            `json:"keyboard_layout"`
 	IncludePreRelease    bool              `json:"include_pre_release"`
 	HashedPassword       string            `json:"hashed_password"`
 	LocalAuthToken       string            `json:"local_auth_token"`
@@ -41,19 +42,8 @@ type Config struct {
 const configPath = "/userdata/kvm_config.json"
 
 var defaultConfig = &Config{
-	CloudURL:             "https://api.jetkvm.com",
-	AutoUpdateEnabled:    true, // Set a default value
-	DisplayMaxBrightness: 64,
-	DisplayDimAfterSec:   120,  // 2 minutes
-	DisplayOffAfterSec:   1800, // 30 minutes
-	VirtualMediaEnabled:  true,
-	UsbConfig: UsbConfig{
-		VendorId:     "0x1d6b", //The Linux Foundation
-		ProductId:    "0x0104", //Multifunction Composite Gadget
-		SerialNumber: "",
-		Manufacturer: "JetKVM",
-		Product:      "JetKVM USB Emulation Device",
-	},
+	CloudURL:          "https://api.jetkvm.com",
+	AutoUpdateEnabled: true, // Set a default value
 }
 
 var config *Config
