@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-type JSONRPCRouter struct {
+type JSONRPCServer struct {
 	writer io.Writer
 
 	handlers map[string]*RPCHandler
@@ -22,14 +22,16 @@ type JSONRPCRouter struct {
 	responseChannels      map[int64]chan JSONRPCResponse
 }
 
-func NewJSONRPCRouter(writer io.Writer, handlers map[string]*RPCHandler) *JSONRPCRouter {
-	return &JSONRPCRouter{
-		writer:   writer,
-		handlers: handlers,
+func NewJSONRPCServer(writer io.Writer, handlers map[string]*RPCHandler) *JSONRPCServer {
+	return &JSONRPCServer{
+		writer:           writer,
+		handlers:         handlers,
+		responseChannels: make(map[int64]chan JSONRPCResponse),
+		nextId:           atomic.Int64{},
 	}
 }
 
-func (s *JSONRPCRouter) Request(method string, params map[string]interface{}, result interface{}) *JSONRPCResponseError {
+func (s *JSONRPCServer) Request(method string, params map[string]interface{}, result interface{}) *JSONRPCResponseError {
 	id := s.nextId.Add(1)
 	request := JSONRPCRequest{
 		JSONRPC: "2.0",
@@ -106,7 +108,7 @@ type JSONRPCMessage struct {
 	ID     *int64  `json:"id,omitempty"`
 }
 
-func (s *JSONRPCRouter) HandleMessage(data []byte) error {
+func (s *JSONRPCServer) HandleMessage(data []byte) error {
 	// Data will either be a JSONRPCRequest or JSONRPCResponse object
 	// We need to determine which one it is
 	var raw JSONRPCMessage
@@ -191,7 +193,7 @@ func (s *JSONRPCRouter) HandleMessage(data []byte) error {
 	return s.writeResponse(response)
 }
 
-func (s *JSONRPCRouter) writeResponse(response JSONRPCResponse) error {
+func (s *JSONRPCServer) writeResponse(response JSONRPCResponse) error {
 	responseBytes, err := json.Marshal(response)
 	if err != nil {
 		return err
