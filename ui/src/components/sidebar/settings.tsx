@@ -390,6 +390,19 @@ export default function SettingsSidebar() {
     });
   }, [send]);
 
+  
+  const handleRebootDevice = useCallback(() => {
+    send("rebootDevice", {}, resp => {
+      if ("error" in resp) {
+        notifications.error(
+          `Failed to reboot device: ${resp.error.data || "Unknown error"}`,
+        );
+        return;
+      }
+      notifications.success("Device is rebooting...");
+    });
+  }, [send]);
+
   return (
     <div
       className="grid h-full shadow-sm grid-rows-headerBody"
@@ -879,6 +892,21 @@ export default function SettingsSidebar() {
                   onClick={() => {
                     handleResetConfig();
                     window.location.reload();
+                  }}
+                />
+              </SettingsItem>
+            )}
+            {settings.debugMode && (
+              <SettingsItem
+                title="Reboot Device"
+                description="Reboot the JetKVM Device"
+              >
+                <Button
+                  size="SM"
+                  theme="light"
+                  text="Reboot Device"
+                  onClick={() => {
+                    handleRebootDevice();
                   }}
                 />
               </SettingsItem>

@@ -10,6 +10,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"reflect"
+	"syscall"
 
 	"github.com/pion/webrtc/v4"
 )
@@ -507,6 +508,11 @@ func rpcResetConfig() error {
 	return nil
 }
 
+func rpcRebootDevice() {
+	syscall.Sync()
+	syscall.Reboot(syscall.LINUX_REBOOT_CMD_RESTART)
+}
+
 // TODO: replace this crap with code generator
 var rpcHandlers = map[string]RPCHandler{
 	"ping":                   {Func: rpcPing},
@@ -554,4 +560,5 @@ var rpcHandlers = map[string]RPCHandler{
 	"getWakeOnLanDevices":    {Func: rpcGetWakeOnLanDevices},
 	"setWakeOnLanDevices":    {Func: rpcSetWakeOnLanDevices, Params: []string{"params"}},
 	"resetConfig":            {Func: rpcResetConfig},
+	"rebootDevice":			  {Func: rpcRebootDevice},
 }
