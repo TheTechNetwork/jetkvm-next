@@ -40,8 +40,8 @@ func (w *DataChannelWriter) Write(data []byte) (int, error) {
 	return len(data), nil
 }
 
-func NewDataChannelJsonRpcRouter(dataChannel *webrtc.DataChannel) *jsonrpc.JSONRPCRouter {
-	return jsonrpc.NewJSONRPCRouter(
+func NewDataChannelJsonRpcServer(dataChannel *webrtc.DataChannel) *jsonrpc.JSONRPCServer {
+	return jsonrpc.NewJSONRPCServer(
 		NewDataChannelWriter(dataChannel),
 		rpcHandlers,
 	)
