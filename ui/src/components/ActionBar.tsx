@@ -18,7 +18,7 @@ import MountPopopover from "./popovers/MountPopover";
 import { Fragment, useCallback, useRef } from "react";
 import { CommandLineIcon } from "@heroicons/react/20/solid";
 import useKeyboard from "@/hooks/useKeyboard";
-import { keys, modifiers } from "@/keyboardMappings";
+import { keyboardMappingsStore } from "@/keyboardMappings/KeyboardMappingStore";
 
 export default function Actionbar({
   requestFullscreen,
@@ -218,8 +218,8 @@ export default function Actionbar({
               LeadingIcon={FaLock}
               onClick={() => {
                 sendKeyboardEvent(
-                [keys["Delete"]],
-                [modifiers["ControlLeft"], modifiers["AltLeft"]],
+                [keyboardMappingsStore.keys["Delete"]],
+                [keyboardMappingsStore.modifiers["ControlLeft"], keyboardMappingsStore.modifiers["AltLeft"]],
                 );
                 setTimeout(resetKeyboardState, 100);
               }}
