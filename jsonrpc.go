@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"syscall"
 
 	"github.com/pion/webrtc/v4"
 )
@@ -443,6 +444,11 @@ func rpcResetConfig() error {
 	return nil
 }
 
+func rpcRebootDevice() {
+	syscall.Sync()
+	syscall.Reboot(syscall.LINUX_REBOOT_CMD_RESTART)
+}
+
 // TODO: replace this crap with code generator
 var rpcHandlers = map[string]*jsonrpc.RPCHandler{
 	"ping":                   {Func: rpcPing},
@@ -502,4 +508,5 @@ var rpcHandlers = map[string]*jsonrpc.RPCHandler{
 	"pluginUninstall":        {Func: plugin.RpcPluginUninstall, Params: []string{"name"}},
 	"setBacklightSettings":   {Func: rpcSetBacklightSettings, Params: []string{"params"}},
 	"getBacklightSettings":   {Func: rpcGetBacklightSettings},
+	"rebootDevice":			  {Func: rpcRebootDevice},
 }
